@@ -1,0 +1,39 @@
+@import "tailwindcss";
+ /* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+input[type="text"],input[type="password"],
+input[type="email"],input[type="number"],
+input[type="tel"],
+textarea{
+  @apply w-full border my-1 py-2 px-3 rounded-xl;
+}
+textarea{
+  height: 140px;
+}
+ /* button{
+  @apply bg-orange-300;
+}
+button.search{
+  background-color:red;
+  @apply bg-primary p-2 w-full text-white rounded-2xl;
+}  */
+button { 
+   @apply px-3 py-1 font-semibold rounded-md;
+  /* @apply bg-gray-300; */
+}
+
+/* Search Button (Header) */
+/* button.search {
+  @apply bg-blue-500 text-white p-2 rounded-full;
+} */
+
+/* Login Button (Centered Below Header) */
+button.login {
+  @apply bg-orange-500 p-2 text-white rounded-xl mt-2 w-full;
+}
+/* button.primary{
+  background-color: #F5385D;
+  @apply bg-primary p-2 w-full text-white rounded-2xl;
+} */
