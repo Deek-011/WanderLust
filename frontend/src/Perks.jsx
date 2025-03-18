@@ -1,7 +1,4 @@
-// if it doesn't work use htis
-// export default function Perks({ selected = [], onChange }) {
-//   function handleCbClick(ev) {
-//     const { checked, name } = ev.target;
+
 
 export default function Perks({selected,onChange}){
   function handleCbClick(ev) {
