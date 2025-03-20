@@ -5,7 +5,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
   const [photoLink, setPhotolink] = useState('');
   async function addPhotoByLink(ev) {
     ev.preventDefault();
-    const { data: filename } = await axios.post('/api/upload-by-link', { link: photoLink });
+    const { data: filename } = await axios.post(`${import.meta.env.VITE_API_URL}/upload-by-link`, { link: photoLink });
     onChange(prev => {
       return [...prev, filename];
     });
@@ -17,7 +17,7 @@ export default function PhotosUploader({ addedPhotos, onChange }) {
     for (let i = 0; i < files.length; i++) {
       data.append('photos', files[i]);
     }
-    axios.post('/api/upload', data, {
+    axios.post(`${import.meta.env.VITE_API_URL}/upload`, data, {
       headers: { 'Content-type': 'multipart/form-data' }
     }).then(response => {
       const { data: filenames } = response;
