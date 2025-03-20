@@ -194,6 +194,9 @@ app.post('/api/bookings', async (req, res) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send('Server is live! 🚀');
+});
 
 app.get('/api/bookings',  async (req,res) => {
  const userData = await getUserDataFromReq(req);
