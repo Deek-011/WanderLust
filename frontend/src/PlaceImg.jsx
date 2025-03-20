@@ -8,6 +8,6 @@ export default function PlaceImg({place,index=0,className}) {
     className = 'object-cover';
   }
   return (
-   <img className={className} src={'https://wanderlust-backend-pvad.onrender.com/uploads/' +place.photos[index]} alt="" />
+   <img className={className} src={`${import.meta.env.VITE_API_URL}/uploads/` +place.photos[index]} alt="" />
   );
 }
