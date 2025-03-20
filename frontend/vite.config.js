@@ -9,13 +9,13 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
-    proxy: {
-      "/api": {
-        target: "https://wanderlust-backend-pvad.onrender.com",
-        changeOrigin: true,
-        secure: false,
-        // rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
+    // proxy: {
+    //   "/api": {
+    //     target: "https://wanderlust-backend-pvad.onrender.com",
+    //     changeOrigin: true,
+    //     secure: false,
+    //     // rewrite: (path) => path.replace(/^\/api/, ""),
+    //   },
+    // },
   },
 });
