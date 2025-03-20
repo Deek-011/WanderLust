@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function IndexPage(){
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    axios.get('/places').then(response => {
+    axios.get(`${import.meta.env.VITE_API_URL}/places`).then(response => {
       setPlaces(response.data);
     });
   }, []);
@@ -15,7 +15,7 @@ export default function IndexPage(){
       <Link to={'/place/' +place._id}>
         <div className="bg-gray-500  mb-2 rounded-2xl flex">
         {place.photos?.[0] && (
-          <img  className="rounded-2xl object-cover aspect-square" src={'https://wanderlust-backend-pvad.onrender.com/uploads/' +place.photos?.[0]} alt="" />
+          <img  className="rounded-2xl object-cover aspect-square" src={`${import.meta.env.VITE_API_URL}/uploads/` +place.photos?.[0]} alt="" />
         )}
         </div>
           <h2 className="font-bold">{place.address}</h2>
