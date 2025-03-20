@@ -24,7 +24,7 @@ export default function PlacesFormPage() {
       if(!id) {
         return;
       }
-      axios.get('/api/places/'+id).then(response => {
+      axios.get(`${import.meta.env.VITE_API_URL}/places/`+id).then(response => {
         const {data} = response;
         setTitle(data.title);
         setAddress(data.address);
@@ -67,14 +67,14 @@ export default function PlacesFormPage() {
       };
       if(id) {
         //update
-        await axios.put('/api/places',{
+        await axios.put(`${import.meta.env.VITE_API_URL}/places`,{
           id,
           ...placeData
         });
         setRedirect(true);
       } else {
         //new place
-      await axios.post('/api/places', placeData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/places`, placeData);
       setRedirect(true);
     }
     }
