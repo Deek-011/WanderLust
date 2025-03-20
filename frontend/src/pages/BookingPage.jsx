@@ -10,7 +10,7 @@ export default function BookingPage() {
   const [booking, setBooking] = useState(null);
   useEffect(() => {
     if(id) {
-      axios.get('/api/bookings').then(response => {
+      axios.get(`${import.meta.env.VITE_API_URL}/bookings`).then(response => {
         const foundBooking = response.data.find(({_id}) => _id === id);
         if(foundBooking) {
          setBooking(foundBooking);
