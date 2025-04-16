@@ -26,7 +26,7 @@ app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
   credentials: true,
   methods:["POST","GET","PUT"],
-  origin: ['https://wander-lust-client.vercel.app'],
+  origin: ['https://wander-lust-client-3qpz8e124-deekshith-s-projects-c3b483f5.vercel.app'],
 }));
 // console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL);
