@@ -26,7 +26,7 @@ app.use('/uploads', express.static(__dirname+'/uploads'));
 app.use(cors({
   credentials: true,
   methods:["POST","GET","PUT"],
-  origin: ['http://localhost:5173'],
+  origin: ['https://wander-lust-client.vercel.app'],
 }));
 // console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL);
@@ -200,8 +200,6 @@ app.get('/api/bookings',  async (req,res) => {
  res.json( await Booking.find({user:userData.id}).populate('place'));
 });
 
-
-app.listen(4000); 
 
 // if there is any problem use this
 // const multer = require('multer');
