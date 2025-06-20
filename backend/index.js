@@ -23,11 +23,19 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
+const allowedOrigins = ['http://localhost:5173', 'https://your-production-frontend.com'];
+
 app.use(cors({
-  credentials: true,
-  methods:["POST","GET","PUT"],
-  origin: ['http://localhost:5173'],
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
+
 // console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL);
 
