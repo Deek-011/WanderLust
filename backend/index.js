@@ -23,7 +23,7 @@ app.listen(PORT, () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
-const allowedOrigins = ['http://localhost:5173', 'https://your-production-frontend.com'];
+const allowedOrigins = ['http://localhost:5173', 'https://wander-lust-peach.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
