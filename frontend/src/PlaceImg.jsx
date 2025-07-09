@@ -8,6 +8,6 @@ export default function PlaceImg({place,index=0,className}) {
     className = 'object-cover';
   }
   return (
-   <img className={className} src={'http://localhost:5000/uploads/' +place.photos[index]} alt="" />
+   <img className={className} src={'https://wanderlust-h5lq.onrender.com/uploads/' +place.photos[index]} alt="" />
   );
 }
