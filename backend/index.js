@@ -39,10 +39,26 @@ app.use(cors({
 // console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL);
 
+// function getUserDataFromReq(req) {
+//   return new Promise((resolve,reject) => {
+//     jwt.verify(req.cookies.token, jwtSecret, {}, async (err,userData) => {
+//       if(err) throw err;
+//       resolve(userData);
+//     });
+//   });
+// }
+
 function getUserDataFromReq(req) {
-  return new Promise((resolve,reject) => {
-    jwt.verify(req.cookies.token, jwtSecret, {}, async (err,userData) => {
-      if(err) throw err;
+  return new Promise((resolve, reject) => {
+    const token = req.cookies.token;
+    if (!token) {
+      return reject(new Error('No token provided'));
+    }
+    
+    jwt.verify(token, jwtSecret, {}, (err, userData) => {
+      if (err) {
+        return reject(err); // Use reject, not throw
+      }
       resolve(userData);
     });
   });
@@ -203,11 +219,20 @@ app.post('/api/bookings', async (req, res) => {
 });
 
 
-app.get('/api/bookings',  async (req,res) => {
- const userData = await getUserDataFromReq(req);
- res.json( await Booking.find({user:userData.id}).populate('place'));
-});
+// app.get('/api/bookings',  async (req,res) => {
+//  const userData = await getUserDataFromReq(req);
+//  res.json( await Booking.find({user:userData.id}).populate('place'));
+// });
 
+app.get('/api/bookings', async (req, res) => {
+  try {
+    const userData = await getUserDataFromReq(req);
+    const bookings = await Booking.find({user: userData.id}).populate('place');
+    res.json(bookings);
+  } catch (error) {
+    res.status(401).json({error: 'Authentication required'});
+  }
+});
 
 const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not set
 
