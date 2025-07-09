@@ -19,22 +19,48 @@ const jwtSecret = process.env.JWT_SECRET;
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname+'/uploads'));
+
 const allowedOrigins = [
   'http://localhost:5173', 
   'https://wander-lust-peach.vercel.app',
-  'https://wander-lust-cli.vercel.app'  // Add this line
+  'https://wander-lust-cli.vercel.app'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin) || !origin) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
+// Handle preflight requests
+app.options('*', cors());
+
+// const allowedOrigins = [
+//   'http://localhost:5173', 
+//   'https://wander-lust-peach.vercel.app',
+//   'https://wander-lust-cli.vercel.app'  // Add this line
+// ];
+
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true
+// }));
 
 // console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL);
