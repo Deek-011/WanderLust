@@ -14,11 +14,7 @@ require('dotenv').config()
 const app = express();
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = process.env.JWT_SECRET;
-const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not set
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
 
 app.use(express.json());
 app.use(cookieParser());
@@ -213,7 +209,11 @@ app.get('/api/bookings',  async (req,res) => {
 });
 
 
-app.listen(4000); 
+const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is not set
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 // if there is any problem use this
 // const multer = require('multer');
