@@ -211,19 +211,39 @@ app.get('/places', async (req,res) =>{
   res.json(await Place.find());
 });
 
+// app.post('/api/bookings', async (req, res) => {
+//   const userData = await getUserDataFromReq(req);
+//   const {
+//     place,checkIn,checkOut,numberOfGuests,name,phone,price,
+//   } = req.body;
+//   Booking.create({
+//     place,checkIn,checkOut,numberOfGuests,name,phone,price,
+//     user:userData.id,
+//   }).then((doc) => {
+//     res.json(doc);
+//   }).catch(() => {
+//     throw err;
+//   });
+// });
+
+// Fix only this part
 app.post('/api/bookings', async (req, res) => {
-  const userData = await getUserDataFromReq(req);
-  const {
-    place,checkIn,checkOut,numberOfGuests,name,phone,price,
-  } = req.body;
-  Booking.create({
-    place,checkIn,checkOut,numberOfGuests,name,phone,price,
-    user:userData.id,
-  }).then((doc) => {
-    res.json(doc);
-  }).catch(() => {
-    throw err;
-  });
+  try {
+    const userData = await getUserDataFromReq(req);
+    const {
+      place,checkIn,checkOut,numberOfGuests,name,phone,price,
+    } = req.body;
+    
+    const booking = await Booking.create({
+      place,checkIn,checkOut,numberOfGuests,name,phone,price,
+      user:userData.id,
+    });
+    
+    res.json(booking);
+  } catch (error) {
+    console.error('Booking creation error:', error);
+    res.status(401).json({error: 'Authentication required'});
+  }
 });
 
 
