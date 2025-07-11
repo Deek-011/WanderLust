@@ -10,7 +10,7 @@ import BookingDates from "../BookingDates";
 export default function BookingsPage() {
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
-    axios.get('/api/bookings').then(response => {
+    axios.get('/api/bookings',{ withCredentials: true }).then(response => {
       setBookings(response.data);
     });
   }, []);
